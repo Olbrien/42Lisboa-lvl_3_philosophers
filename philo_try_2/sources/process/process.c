@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 12:17:44 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 13:04:46 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 22:40:42 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	*process_actions(void *args)
 
 		pthread_mutex_unlock(&philo->args->forks[philo->fork_on_left]);
 		pthread_mutex_unlock(&philo->args->forks[philo->fork_on_right]);
+
 		philo->must_eat_times--;
 
 		update_the_time(philo);
@@ -101,3 +102,7 @@ void	process(t_philo **philo_old)
 	if (philo->args->has_anyone_died == 0)
 		printf("%li everyone is satisfied\n", philo[0].args->global_time);
 }
+
+
+// Tua ideia é criar um thread antes de entrar com um while (1),
+// e se encontrar um "has_anyone_died" fazer qualquer coisa.
