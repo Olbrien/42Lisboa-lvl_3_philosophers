@@ -6,28 +6,28 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:50:49 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/13 09:42:16 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:03:05 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosophers.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	display_message(t_philo *philo, int message)
 {
-	if (fd < 0)
-		return ;
-	write(fd, &c, 1);
-}
+	if (message == MESSAGE_TAKEN_FORK)
+	{
+		printf("%li %i has taken a fork\n", philo->args->global_time, philo->philo_nbr);
+		printf("%li %i has taken a fork\n", philo->args->global_time, philo->philo_nbr);
+	}
+	else if (message == MESSAGE_EATING)
+		printf("%li %i is eating\n", philo->args->global_time, philo->philo_nbr);
+	else if (message == MESSAGE_SLEEPING)
+		printf("%li %i is sleeping\n", philo->args->global_time, philo->philo_nbr);
+	else if (message == MESSAGE_THINKING)
+		printf("%li %i is thinking\n", philo->args->global_time, philo->philo_nbr);
+	else if (message == MESSAGE_DIED)
+		printf("%li %i died\n", philo->args->global_time, philo->philo_nbr);
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (!s || fd < 0)
-		return ;
-	while (s[i])
-		ft_putchar_fd(s[i++], fd);
 }
 
 long long	ft_atoll(const char *str)

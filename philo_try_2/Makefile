@@ -5,9 +5,9 @@ CC = clang
 CFLAGS = -pthread #-Wall -Wextra -Werror
 
 MAIN = philosophers
-UTILS = utils utils2
+UTILS = utils
 INITIALIZE = initialize
-PROCESS = process actions
+PROCESS = process
 
 SRC = $(addsuffix .c, $(addprefix , $(MAIN))) \
 	  $(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \

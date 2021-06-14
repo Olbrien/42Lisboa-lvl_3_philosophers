@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 12:17:44 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 11:34:13 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 13:04:46 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*process_actions(void *args)
 
 	philo = (t_philo *)args;
 
-	while(philo->is_alive == 1 || philo->must_eat_times == 0)
+	while(philo->is_alive == 1 && philo->must_eat_times != 0)
 	{
 		pthread_mutex_lock(&philo->args->forks[philo->fork_on_left]);
 		pthread_mutex_lock(&philo->args->forks[philo->fork_on_right]);
@@ -42,6 +42,7 @@ void	*process_actions(void *args)
 
 		pthread_mutex_unlock(&philo->args->forks[philo->fork_on_left]);
 		pthread_mutex_unlock(&philo->args->forks[philo->fork_on_right]);
+		philo->must_eat_times--;
 
 		update_the_time(philo);
 		display_message(philo, MESSAGE_SLEEPING);
@@ -50,17 +51,14 @@ void	*process_actions(void *args)
 
 		update_the_time(philo);
 		display_message(philo, MESSAGE_THINKING);
-
-		break;
-
 	}
 	if (philo->is_alive == 0)
-		ft_putstr_fd("Philosopher died!!!\n", 1);
+		display_message(philo, MESSAGE_DIED);
 
 	return (NULL);
 }
 
-void	init_pthread_mutex(t_philo *philo)
+void	init_process(t_philo *philo)
 {
 	int	i;
 
@@ -71,6 +69,8 @@ void	init_pthread_mutex(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_init(&philo->args->mutex_time, NULL);
+
+	gettimeofday(&philo->args->start_time, NULL);
 }
 
 void	process(t_philo **philo_old)
@@ -81,8 +81,7 @@ void	process(t_philo **philo_old)
 	philo = *philo_old;
 	i = 0;
 
-	init_pthread_mutex(philo);
-	gettimeofday(&philo->args->start_time, NULL);
+	init_process(philo);
 
 	while(i < philo->args->nbr_philo)
 	{
@@ -91,7 +90,6 @@ void	process(t_philo **philo_old)
 	}
 
 	i = 0;
-
 	while(i < philo->args->nbr_philo)
 	{
 		pthread_join(philo->args->t_id[i], NULL);
@@ -100,4 +98,6 @@ void	process(t_philo **philo_old)
 	}
 	pthread_mutex_destroy(&philo->args->mutex_time);
 
+	if (philo->args->has_anyone_died == 0)
+		printf("%li everyone is satisfied\n", philo[0].args->global_time);
 }

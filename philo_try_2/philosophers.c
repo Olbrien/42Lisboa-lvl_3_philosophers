@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:40:54 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 11:20:01 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:03:48 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	check_nbr_args(argc)
 {
 	if (argc < 5 || argc > 6)
 	{
-		ft_putstr_fd("You need to insert 4 or 5 arguments.\n", 1);
-		ft_putstr_fd("- Number of philosophers.\n", 1);
-		ft_putstr_fd("- Time to die.   (ms)\n", 1);
-		ft_putstr_fd("- Time to eat.   (ms)\n", 1);
-		ft_putstr_fd("- Time to sleep. (ms)\n", 1);
-		ft_putstr_fd("- Number of times each philosopher must eat. (opt)\n", 1);
+		printf("You need to insert 4 or 5 arguments.\n");
+		printf("- Number of philosophers.\n");
+		printf("- Time to die.   (ms)\n");
+		printf("- Time to eat.   (ms)\n");
+		printf("- Time to sleep. (ms)\n");
+		printf("- Number of times each philosopher must eat. (opt)\n");
 		return (0);
 	}
 	return (1);

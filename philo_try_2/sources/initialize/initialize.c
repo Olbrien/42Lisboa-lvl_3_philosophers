@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 11:32:24 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 11:38:02 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 13:01:10 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_philosophers(t_args *args, t_philo **philo)
 {
 	if (args->eat_times == 0)
 	{
-		ft_putstr_fd("0 all philosophers have eaten the required amount.\n", 1);
+		printf("0 all philosophers have eaten the required amount.\n");
 		free(args->forks);
 		free(args->t_id);
 		return (0);
@@ -60,15 +60,15 @@ int	validate_args(int argc, char **argv, t_args *args)
 		|| ft_isstringdigit(argv[3]) == 0 || ft_isstringdigit(argv[4]) == 0
 		|| argc == 6 && ft_isstringdigit(argv[5]) == 0)
 	{
-		ft_putstr_fd("You need to insert numerical values in all fields.\n", 1);
+		printf("You need to insert numerical values in all fields.\n");
 		return (0);
 	}
 	if (args->nbr_philo <= 0 || args->time_to_die <= 0
 		|| args->time_to_eat <= 0 || args->time_to_sleep <= 0
 		|| args->eat_times < 0 && argc == 6)
 	{
-		ft_putstr_fd("You need to insert values superior to 0 in all fields ", 1);
-		ft_putstr_fd("except argument 5.\n", 1);
+		printf("You need to insert values superior to 0 in all fields ");
+		printf("except argument 5.\n");
 		return (0);
 	}
 	return (1);
@@ -88,6 +88,7 @@ int	init_args(int argc, char **argv, t_args *args)
 		args->eat_times = -1;
 
 	args->global_time = 0;
+	args->has_anyone_died = 0;
 
 	args->forks = malloc(sizeof(pthread_mutex_t) * args->nbr_philo);
 	args->t_id = malloc(sizeof(pthread_mutex_t) * args->nbr_philo);

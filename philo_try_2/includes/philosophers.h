@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:41:56 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 11:19:18 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 13:00:54 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_args
 	pthread_t 			*t_id;
 	pthread_mutex_t 	*forks;
 	pthread_mutex_t		mutex_time;
+
+	int					has_anyone_died;
 }			t_args;
 
 typedef struct s_philo
@@ -93,10 +95,8 @@ void			action_eat(t_args *args);
 ** Utils
 */
 
-void			ft_putstr_fd(char *s, int fd);
 long long		ft_atoll(const char *str);
 int				ft_isstringdigit(char *string);
-
 void			display_message(t_philo *philo, int message);
 
 
