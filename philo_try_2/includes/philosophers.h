@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:41:56 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 01:24:57 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:19:18 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 #define NOTHING 0
 #define EATING 1
@@ -33,14 +34,19 @@
 
 typedef struct s_args
 {
-	long long int		nbr_philo;
-	long long int		time_to_die;
-	long long int		time_to_eat;
-	long long int		time_to_sleep;
-	long long int		eat_times;
+	int				nbr_philo;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			eat_times;
+
+	struct timeval		start_time;
+	struct timeval		passed_time;
+	long				global_time;
 
 	pthread_t 			*t_id;
 	pthread_mutex_t 	*forks;
+	pthread_mutex_t		mutex_time;
 }			t_args;
 
 typedef struct s_philo
@@ -91,7 +97,7 @@ void			ft_putstr_fd(char *s, int fd);
 long long		ft_atoll(const char *str);
 int				ft_isstringdigit(char *string);
 
-void			display_message(t_args *args, int message);
+void			display_message(t_philo *philo, int message);
 
 
 

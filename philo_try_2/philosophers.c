@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:40:54 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/14 02:00:53 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/14 11:20:01 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	debug(t_philo *philo)
 	int	i;
 
 	i = 0;
-	printf("\nPhilosophers = %lli\n", philo[i].args->nbr_philo);
-	printf("Time to die = %llims\n", philo[i].args->time_to_die);
-	printf("Time to eat = %llims\n", philo[i].args->time_to_eat);
-	printf("Time to sleep = %llims\n", philo[i].args->time_to_sleep);
-	printf("Must eat = %lli times each\n", philo[i].args->eat_times);
+	printf("\nPhilosophers = %i\n", philo[i].args->nbr_philo);
+	printf("Time to die = %lims\n", philo[i].args->time_to_die);
+	printf("Time to eat = %lims\n", philo[i].args->time_to_eat);
+	printf("Time to sleep = %lims\n", philo[i].args->time_to_sleep);
+	printf("Must eat = %li times each\n", philo[i].args->eat_times);
 	printf("\n------------------------------------------\n");
 
 	while (i < philo->args->nbr_philo)
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	if (init_philosophers(&args, &philo) == 0)
 		return (0);
 
-	debug(philo);
+	//debug(philo);
 
 	process(&philo);
 
