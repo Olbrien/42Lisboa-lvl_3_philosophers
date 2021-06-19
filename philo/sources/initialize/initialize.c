@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 11:32:24 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/19 20:15:21 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/19 21:10:36 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ int	validate_args(int argc, char **argv, t_args *args)
 {
 	if (ft_isstringdigit(argv[1]) == 0 || ft_isstringdigit(argv[2]) == 0
 		|| ft_isstringdigit(argv[3]) == 0 || ft_isstringdigit(argv[4]) == 0
-		|| argc == 6 && ft_isstringdigit(argv[5]) == 0)
+		|| (argc == 6 && ft_isstringdigit(argv[5]) == 0))
 	{
 		printf("You need to insert numerical values in all fields.\n");
 		return (0);
 	}
 	if (args->nbr_philo <= 0 || args->time_to_die <= 0
 		|| args->time_to_eat <= 0 || args->time_to_sleep <= 0
-		|| args->eat_times < 0 && argc == 6)
+		|| (args->eat_times < 0 && argc == 6))
 	{
 		printf("You need to insert values superior to 0 in all fields ");
 		printf("except argument 5.\n");

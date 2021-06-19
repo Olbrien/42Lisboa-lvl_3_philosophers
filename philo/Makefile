@@ -2,7 +2,7 @@
 NAME = philo
 
 CC = clang
-CFLAGS = -pthread -O3 #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 MAIN = philosophers
 UTILS = utils
