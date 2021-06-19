@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:41:56 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/13 23:31:00 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/19 20:20:15 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,38 @@
 # include <string.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <sys/time.h>
 
-#define NOTHING 0
-#define EATING 1
-#define SLEEPING 2
-#define THINKING 3
+# define NOTHING 0
+# define EATING 1
+# define SLEEPING 2
+# define THINKING 3
 
-#define MESSAGE_TAKEN_FORK 10
-#define MESSAGE_EATING 11
-#define MESSAGE_SLEEPING 12
-#define MESSAGE_THINKING 13
-#define MESSAGE_DIED 14
+# define MESSAGE_TAKEN_FORK 10
+# define MESSAGE_EATING 11
+# define MESSAGE_SLEEPING 12
+# define MESSAGE_THINKING 13
+# define MESSAGE_DIED 14
+# define MESSAGE_TAKEN_SINGLE_FORK 15
 
+typedef struct s_args
+{
+	int					nbr_philo;
+	long				time_to_die;
+	long				time_to_eat;
+	long				time_to_sleep;
+	long				eat_times;
 
+	struct timeval		start_time;
+	struct timeval		passed_time;
+	long				global_time;
+
+	pthread_t			*t_id;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		mutex_time;
+
+	int					has_anyone_died;
+}			t_args;
 
 typedef struct s_philo
 {
@@ -38,47 +57,33 @@ typedef struct s_philo
 
 	int					is_alive;
 
-	int					forks_on_hand;
+	int					fork_on_left;
 	int					fork_on_right;
 
 	int					must_eat_times;
 
-	int					last_action;
+	long				last_meal;
 
-	long long int		start_action_time;
-	long long int		end_action_time;
-
-
-}		t_philo;
-
-typedef struct s_args
-{
-	long long int		nbr_philo;
-	long long int		time_to_die;
-	long long int		time_to_eat;
-	long long int		time_to_sleep;
-	long long int		eat_times;
-
-	pthread_t 			*tid;
-	int					tid_i;
-
-	pthread_mutex_t 	mutex;
-
-	t_philo				*philo;
-}			t_args;
+	t_args				*args;
+}			t_philo;
 
 /*
 ** Initialize
 */
 
 int				init_args(int argc, char **argv, t_args *args);
-int				init_philosophers(t_args *args);
+int				init_philosophers(t_args *args, t_philo **philo);
 
 /*
 ** Process
 */
 
-void			process(t_args *args);
+void			process(t_philo **philo_old);
+void			update_the_time(t_philo *philo);
+int				eating(t_philo *philo);
+int				sleeping(t_philo *philo);
+void			thinking(t_philo *philo);
+void			mutex_lock_unlock(t_philo *philo, int i);
 
 /*
 ** Actions
@@ -91,12 +96,9 @@ void			action_eat(t_args *args);
 ** Utils
 */
 
-void			ft_putstr_fd(char *s, int fd);
 long long		ft_atoll(const char *str);
 int				ft_isstringdigit(char *string);
-
-void			display_message(t_args *args, int message);
-
-
+void			display_message(t_philo *philo, int message);
+void			update_the_time(t_philo *philo);
 
 #endif

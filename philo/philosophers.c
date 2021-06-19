@@ -6,49 +6,46 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:40:54 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/13 19:46:37 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/19 20:13:14 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/philosophers.h"
 
-void	debug(t_args *args)
+void	debug(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	printf("\nPhilosophers = %lli\n", args->nbr_philo);
-	printf("Time to die = %llims\n", args->time_to_die);
-	printf("Time to eat = %llims\n", args->time_to_eat);
-	printf("Time to sleep = %llims\n", args->time_to_sleep);
-	printf("Must eat = %lli times each\n", args->eat_times);
+	printf("\nPhilosophers = %i\n", philo[i].args->nbr_philo);
+	printf("Time to die = %lims\n", philo[i].args->time_to_die);
+	printf("Time to eat = %lims\n", philo[i].args->time_to_eat);
+	printf("Time to sleep = %lims\n", philo[i].args->time_to_sleep);
+	printf("Must eat = %li times each\n", philo[i].args->eat_times);
 	printf("\n------------------------------------------\n");
-
-	while (i < args->nbr_philo)
+	while (i < philo->args->nbr_philo)
 	{
-		printf("Philo number #%d\n", args->philo[i].philo_nbr);
-		printf("Is alive %d\n", args->philo[i].is_alive);
-		printf("Forks on hand %d\n", args->philo[i].forks_on_hand);
-		printf("Fork on right %d\n", args->philo[i].fork_on_right);
-		printf("Must eat times %d\n", args->philo[i].must_eat_times);
-		printf("Last action %d\n", args->philo[i].last_action);
-		printf("Start action time %lli\n", args->philo[i].start_action_time);
-		printf("End action time %lli\n", args->philo[i].end_action_time);
+		printf("Philo number #%d\n", philo[i].philo_nbr);
+		printf("Is alive %d\n", philo[i].is_alive);
+		printf("Fork on left hand %d\n", philo[i].fork_on_left);
+		printf("Fork on right hand %d\n", philo[i].fork_on_right);
+		printf("Must eat times %d\n", philo[i].must_eat_times);
+		printf("Last meal %li\n", philo[i].last_meal);
 		printf("\n------------------------------------------\n");
 		i++;
 	}
 }
 
-int	check_nbr_args(argc)
+int	check_nbr_args(int argc)
 {
 	if (argc < 5 || argc > 6)
 	{
-		ft_putstr_fd("You need to insert 4 or 5 arguments.\n", 1);
-		ft_putstr_fd("- Number of philosophers.\n", 1);
-		ft_putstr_fd("- Time to die.   (ms)\n", 1);
-		ft_putstr_fd("- Time to eat.   (ms)\n", 1);
-		ft_putstr_fd("- Time to sleep. (ms)\n", 1);
-		ft_putstr_fd("- Number of times each philosopher must eat. (opt)\n", 1);
+		printf("You need to insert 4 or 5 arguments.\n");
+		printf("- Number of philosophers.\n");
+		printf("- Time to die.   (ms)\n");
+		printf("- Time to eat.   (ms)\n");
+		printf("- Time to sleep. (ms)\n");
+		printf("- Number of times each philosopher must eat. (opt)\n");
 		return (0);
 	}
 	return (1);
@@ -56,24 +53,17 @@ int	check_nbr_args(argc)
 
 int	main(int argc, char **argv)
 {
-	t_args args;
+	t_args	args;
+	t_philo	*philo;
 
 	if (check_nbr_args(argc) == 0)
 		return (0);
 	if (init_args(argc, argv, &args) == 0)
 		return (0);
-	if (init_philosophers(&args) == 0)
+	if (init_philosophers(&args, &philo) == 0)
 		return (0);
-
-	process(&args);
-
-	//debug(&args);
-
-
-
-
-
-	free(args.philo);
-	free(args.tid);
-
+	process(&philo);
+	free(args.forks);
+	free(args.t_id);
+	free(philo);
 }

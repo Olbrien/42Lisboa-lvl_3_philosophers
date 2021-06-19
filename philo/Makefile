@@ -2,12 +2,12 @@
 NAME = philo
 
 CC = clang
-CFLAGS = -pthread #-Wall -Wextra -Werror
+CFLAGS = -pthread -O3 #-Wall -Wextra -Werror
 
 MAIN = philosophers
-UTILS = utils utils2
+UTILS = utils
 INITIALIZE = initialize
-PROCESS = process actions
+PROCESS = process process2
 
 SRC = $(addsuffix .c, $(addprefix , $(MAIN))) \
 	  $(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \

@@ -6,28 +6,46 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:50:49 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/13 09:42:16 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/19 20:19:00 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/philosophers.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	update_the_time(t_philo *philo)
 {
-	if (fd < 0)
-		return ;
-	write(fd, &c, 1);
+	long	diff;
+
+	gettimeofday(&philo->args->passed_time, NULL);
+	diff = (philo->args->passed_time.tv_sec - philo->args->start_time.tv_sec)
+		* 1000 + (philo->args->passed_time.tv_usec
+			- philo->args->start_time.tv_usec) / 1000;
+	philo->args->global_time = diff;
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	display_message(t_philo *philo, int message)
 {
-	int	i;
-
-	i = 0;
-	if (!s || fd < 0)
-		return ;
-	while (s[i])
-		ft_putchar_fd(s[i++], fd);
+	if (message == MESSAGE_TAKEN_SINGLE_FORK)
+		printf("%li %i has taken a fork\n",
+			philo->args->global_time, philo->philo_nbr);
+	else if (message == MESSAGE_EATING)
+	{
+		printf("%li %i has taken a fork\n",
+			philo->args->global_time, philo->philo_nbr);
+		printf("%li %i has taken a fork\n",
+			philo->args->global_time, philo->philo_nbr);
+		printf("%li %i is eating\n",
+			philo->args->global_time, philo->philo_nbr);
+	}
+	else if (message == MESSAGE_SLEEPING)
+		printf("%li %i is sleeping\n", philo->args->global_time,
+			philo->philo_nbr);
+	else if (message == MESSAGE_THINKING)
+		printf("%li %i is thinking\n", philo->args->global_time,
+			philo->philo_nbr);
+	else if (message == MESSAGE_DIED)
+		printf("%li %i died\n", philo->args->global_time,
+			philo->philo_nbr);
 }
 
 long long	ft_atoll(const char *str)
