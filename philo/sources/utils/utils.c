@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:50:49 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/19 20:19:00 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/20 01:40:11 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ void	display_message(t_philo *philo, int message)
 			philo->philo_nbr);
 }
 
+int	ft_isspace(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || \
+			c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
+}
+
 long long	ft_atoll(const char *str)
 {
 	long long	ret;
@@ -57,8 +65,7 @@ long long	ft_atoll(const char *str)
 	ret = 0;
 	checker = 0;
 	sign = 1;
-	while (*str == '\t' || *str == '\n' || *str == '\v' || \
-			*str == '\f' || *str == '\r' || *str == ' ')
+	while (ft_isspace(*str))
 		++str;
 	if (*str && (*str == 43 || *str == 45))
 	{
@@ -78,13 +85,6 @@ long long	ft_atoll(const char *str)
 	return (ret * sign);
 }
 
-int	ft_isdigit(int c)
-{
-	if ((c >= '0' && c <= '9'))
-		return (1);
-	return (0);
-}
-
 int	ft_isstringdigit(char *string)
 {
 	int	i;
@@ -99,7 +99,7 @@ int	ft_isstringdigit(char *string)
 			i++;
 			continue ;
 		}
-		if (ft_isdigit(string[i]) == 1)
+		if (string[i] >= '0' && string[i] <= '9')
 			a = 1;
 		else
 			return (0);

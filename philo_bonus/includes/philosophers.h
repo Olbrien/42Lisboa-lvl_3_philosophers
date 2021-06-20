@@ -6,13 +6,14 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:41:56 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/20 00:00:43 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/06/20 01:43:57 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include <signal.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
