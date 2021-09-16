@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 MAIN = philosophers
 UTILS = utils
 INITIALIZE = initialize
-PROCESS = process process2
+PROCESS = process process2 process3
 
 SRC = $(addsuffix .c, $(addprefix , $(MAIN))) \
 	  $(addsuffix .c, $(addprefix sources/utils/, $(UTILS))) \
