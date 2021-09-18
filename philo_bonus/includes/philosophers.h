@@ -6,7 +6,7 @@
 /*   By: tisantos <tisantos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 02:41:56 by tisantos          #+#    #+#             */
-/*   Updated: 2021/06/20 01:43:57 by tisantos         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:11:47 by tisantos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_args
 	long				time_to_eat;
 	long				time_to_sleep;
 	long				eat_times;
+
+	long				last_meal_global[500];
 
 	struct timeval		start_time;
 	struct timeval		passed_time;
@@ -88,6 +90,9 @@ int				sleeping(t_philo *philo);
 void			thinking(t_philo *philo);
 void			mutex_lock_unlock(t_philo *philo, int i);
 void			free_stuff(t_philo *philo, pid_t **pid);
+int				usleep_duration(long n, t_philo *philo);
+void			usleep_duration2(t_philo *philo, struct timeval *current);
+int				usleep_duration3(t_philo *philo);
 
 /*
 ** Actions

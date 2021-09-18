@@ -53,14 +53,24 @@ void	init_process(t_philo *philo, pid_t **pid)
 	*pid = malloc(sizeof(pid_t) * philo->args->nbr_philo);
 }
 
-void	process2(t_philo *philo, int i, pid_t *pid)
+void	process2(t_philo *philo, int i, pid_t *pid, int a)
 {
-	if (philo[i].must_eat_times == 0)
+	int	b;
+
+	b = 0;
+	if (philo[i].must_eat_times == 0 && philo->args->nbr_philo != 1)
 	{
-		if (philo[i].args->has_anyone_died == 1)
+		if (pid == 0 && philo[i].args->has_anyone_died == 1)
 			exit (1);
-		printf("%li everyone is satisfied\n", philo[0].args->global_time);
-		exit (1);
+		while (a < philo->args->nbr_philo)
+		{
+			if (philo[a].must_eat_times == 0)
+				printf("%li everyone is satisfied\n",
+					philo[0].args->global_time);
+			a++;
+		}		
+		while (i < philo->args->nbr_philo)
+			exit(1);
 	}
 	waitpid(-1, NULL, 0);
 	i = 0;
@@ -98,5 +108,5 @@ void	process(t_philo **philo_old)
 		}
 		i++;
 	}
-	process2(philo, i, pid);
+	process2(philo, i, pid, 0);
 }
