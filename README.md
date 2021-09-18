@@ -20,7 +20,7 @@ You can find the subject of this project [here.](https://github.com/Olbrien/42Li
 First download the repository.
 
 Go to the folder 'philo' or 'philo_bonus' and do a "make".\
-You will get an executable file called 'philo" or 'philo_bonus'.\
+You will get an executable file called 'philo" or 'philo_bonus'.
 
 ## Cases to run:
 
